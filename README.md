@@ -15,9 +15,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Clone the repo
 ```
-git clone https://github.com/Choukouali2014/Frank.git
+git clone https://github.com/Choukouali2014/portofolio.git
 
-Run `cd Frank` to go inside the directory
+Run `cd portofolio` to go inside the directory
 ```
 Install dependencies
 ```
