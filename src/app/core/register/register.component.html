@@ -1,0 +1,72 @@
+<div *ngIf="auth.user | async;  else guest">
+</div>
+<ng-template #guest>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card card-signin flex-row my-5">
+                    <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Sign Up</h5>
+                        <div class="alert alert-primary" role="alert" *ngIf="errors">
+                            {{ errors}}
+                         </div>
+                        <form class="form-signin" [formGroup]="signUp">
+                            <label for="inputUsername">Username</label>
+                            <div class="form-group">
+                                <input type="text" id="inputUsername" (blur)="ShowErrors()" class="form-control"
+                                    formControlName="username">
+                                <span class="form-text   alert-danger" *ngIf="formErrors.username">
+                                    {{formErrors.username }}
+                                </span>
+                            </div>
+                            <label for="inputEmail">Email address</label>
+                            <div class="form-group">
+                                <input type="email" id="inputEmail" (blur)="ShowErrors()" class="form-control"
+                                    formControlName="email">
+                                <span class="form-text   alert-danger" *ngIf="formErrors.email">
+                                    {{formErrors.email }}
+                                </span>
+                            </div>
+                            <label for="inputPassword">Password</label>
+                            <div class="form-group">
+                                <input type="password" id="inputPassword" (blur)="ShowErrors()" class="form-control"
+                                    formControlName="password">
+                                <span class="form-text   alert-danger" *ngIf="formErrors.password">
+                                    {{formErrors.password }}
+                                </span>
+                            </div>
+                            <label for="inputConfirmPassword">Confirm Password</label>
+                            <div class="form-group">
+                                <input type="password" id="inputConfirmPassword" (blur)="ShowErrors()"
+                                    class="form-control" formControlName="Confirmpassword">
+                                <span class="form-text   alert-danger" *ngIf="formErrors.Confirmpassword">
+                                    {{formErrors.Confirmpassword }}
+                                </span>
+                            </div>
+                            <span class="form-text   alert-danger" *ngIf="formErrors.mustMatch" (blur)="ShowErrors()">
+                                {{formErrors.mustMatch }}
+                            </span>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"
+                                [disabled]="!signUp.valid  || !signUp.touched ||  message " (click)="onSubmit()">Sign Up
+                                <img src="../../assets/loading.gif" *ngIf="message" alt="" style="width: 20px;">
+                            </button>
+                            <button class="btn btn-lg btn-dark btn-block text-uppercase" (click)="signIn()"
+                                type="submit">Sign In
+                            </button>
+                            <hr class="my-4">
+                            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"
+                                (click)="auth.googleLogin()"><i class="fab fa-google mr-2"></i> Sign in with
+                                Google</button>
+                            <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"
+                                (click)="auth.facebookLogin()"><i class="fab fa-facebook-f mr-2"></i> Sign in with
+                                Facebook</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

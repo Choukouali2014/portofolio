@@ -1,0 +1,344 @@
+<div  >
+  <div *ngIf="message" class="alert alert-success" role="alert">{{message}}</div>
+  <form [formGroup]="employeeForm" class="form-horizontal">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="card-title">
+          <h2>{{pageTitle}}</h2>
+        </div>
+
+        <div class="jumbotron">
+          <div class="form-group row">
+            <label class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.firstName}">
+              <input type="text" class="form-control" formControlName="firstName" placeholder="First Name"
+                (blur)="ShowErrors()">
+              <span class="form-text   alert-danger" *ngIf="formErrors.firstName">
+                {{formErrors.firstName}}
+              </span>
+            </div>
+            <label class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.lastName}">
+              <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name"
+                (blur)="ShowErrors()">
+              <span class="form-text alert-danger" *ngIf="formErrors.lastName">
+                {{formErrors.lastName}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.address}">
+              <input type="text" class="form-control" formControlName="address" placeholder="Address"
+                (blur)="ShowErrors()">
+              <span class="form-text   alert-danger" *ngIf="formErrors.address">
+                {{formErrors.address}}
+              </span>
+            </div>
+            <label class="col-sm-2 control-label">City</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.city}">
+              <input type="text" class="form-control" formControlName="city" placeholder="City"
+                (blur)="ShowErrors()">
+              <span class="form-text alert-danger" *ngIf="formErrors.city">
+                {{formErrors.city}}
+              </span>
+            </div>
+
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 control-label">State</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.state}">
+              <input type="text" class="form-control" formControlName="state" placeholder="State"
+                (blur)="ShowErrors()">
+              <span class="form-text alert-danger" *ngIf="formErrors.state">
+                {{formErrors.state}}
+              </span>
+            </div>
+            <label class="col-sm-2 control-label">Zip</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.zip}">
+              <input type="text" class="form-control" formControlName="zip" placeholder="Zip code"
+                (blur)="ShowErrors()">
+              <span class="form-text alert-danger" *ngIf="formErrors.zip">
+                {{formErrors.zip}}
+              </span>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 control-label">Contact Preference</label>
+            <div class="col-sm-4">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="email"
+                  formControlName="contactPreference">
+                <label class="form-check-label" for="inlineCheckbox1">Email</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="phone"
+                  formControlName="contactPreference">
+                <label class="form-check-label" for="inlineCheckbox2">Phone</label>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group row" [ngClass]="{'has-error' : formErrors.email }">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-4">
+              <input type="email" class="form-control" id="email" formControlName="email"
+                (blur)="ShowErrors()">
+              <span class="form-text  alert-danger" *ngIf="formErrors.email">
+                {{formErrors.email}}
+              </span>
+            </div>
+            <label for="phone" class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.phone}">
+              <input type="text" class="form-control" id="phone" formControlName="phone" (blur)="ShowErrors()">
+              <span class="form-text  alert-danger" *ngIf="formErrors.phone">
+                {{formErrors.phone}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron">
+          <div class="form-group row">
+            <div class="col-sm-offset-1 col-sm-4">
+              <button type="button" class="btn btn-primary" (click)="addSkillButton()"
+                [disabled]="employeeForm.get('skills').invalid">
+                Add skill
+              </button>
+            </div>
+          </div>
+          <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls; let i =index;">
+            <hr *ngIf="i > 0 ">
+            <div formGroupName="{{i}}">
+              <div class="form-group row"
+                [ngClass]="{'has-error' : skill.get('skillName').invalid && skill.get('skillName').touched}">
+                <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">Skill</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" [id]="'skillName'+i" formControlName="skillName"
+                    placeholder="Name">
+                  <span class="form-text  alert-danger"
+                    *ngIf="skill.get('skillName').errors?.required && skill.get('skillName').touched">
+                    Skill Name is required
+                  </span>
+                </div>
+                <div class="col-sm-6" *ngIf="employeeForm.get('skills').length > 1 ">
+                  <button class="btn btn-danger btn-sm pull-right" title="Delete Skill" (click)="deleteSkill(i)">
+                    remove
+                  </button>
+                </div>
+              </div>
+              <div class="form-group row"
+                [ngClass]="{'has-error' : skill.get('experience').invalid && skill.get('experience').touched}">
+                <label class="col-sm-2 control-label" [attr.for]="'experience'+i">Experience</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" [id]="'experience'+i" formControlName="experience"
+                    placeholder="Years of Experiences" (blur)="ShowErrors()">
+                  <span class="form-text  alert-danger"
+                    *ngIf="skill.get('experience').errors?.required  && skill.get('experience').touched">
+                    Experience is required
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group row"
+                [ngClass]="{'has-error' : skill.get('proficiency').invalid && skill.get('proficiency').touched}">
+                <label class="col-sm-2 control-label">Proficiency</label>
+                <div class="col-sm-8">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="beginner" formControlName="proficiency">
+                    <label class="form-check-label">Beginner</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="intermediaire" formControlName="proficiency">
+                    <label class="form-check-label">Intermediaire</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="advanced" formControlName="proficiency">
+                    <label class="form-check-label">Advanced</label>
+                  </div>
+                  <span class="form-text  alert-danger"
+                    *ngIf="skill.get('proficiency').errors?.required && skill.get('proficiency').touched">
+                    Proficiency is required
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron">
+          <div class="form-group row">
+            <div class="col-sm-offset-1 col-sm-4">
+              <button type="button" class="btn btn-primary" (click)="addEducationButton()"
+                [disabled]="employeeForm.get('education').invalid">
+                Add Education
+              </button>
+            </div>
+          </div>
+          <div formArrayName="education" *ngFor="let educate of employeeForm.get('education').controls; let i =index;">
+            <hr *ngIf="i > 0 ">
+            <div formGroupName="{{i}}">
+              <div class="form-group row"
+                [ngClass]="{'has-error' : educate.get('educationName').invalid && educate.get('educationName').touched}">
+                <label class="col-sm-2 control-label" [attr.for]="'educationName'+i">Education</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" [id]="'educationName'+i" formControlName="educationName"
+                    placeholder="College or University">
+                  <span class="form-text  alert-danger"
+                    *ngIf="educate.get('educationName').errors?.required && educate.get('educationName').touched">
+                    Education Name is required
+                  </span>
+                </div>
+                <div class="col-sm-6" *ngIf="employeeForm.get('education').length > 1 ">
+                  <button class="btn btn-danger btn-sm pull-right" (click)="deleteEducation(i)"
+                    title="Delete Education">
+                    remove
+                  </button>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" [attr.for]="'degree'+i">Degree</label>
+                <div class="col-sm-4"
+                  [ngClass]="{'has-error' : educate.get('degree').invalid && educate.get('degree').touched}">
+                  <input type="text" class="form-control" [id]="'degree'+i" formControlName="degree"
+                    placeholder="Bachelor of computer science">
+                  <span class="form-text  alert-danger"
+                    *ngIf="educate.get('degree').errors?.required && educate.get('degree').touched">
+                    Degree is required
+                  </span>
+                </div>
+                <label class="col-sm-2 control-label" [attr.for]="'gpa'+i">GPA</label>
+                <div class="col-sm-4">
+                  <input type="number" formControlName="gpa" [id]="'gpa'+i" class="form-control">
+
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" [attr.for]="'startDate'+i">Start Date</label>
+                <div class="col-sm-4"
+                  [ngClass]="{'has-error' : educate.get('startDate').invalid && educate.get('startDate').touched}">
+                  <input type="text" class="form-control" [id]="'startDate'+i" formControlName="startDate"
+                    placeholder="Start Date">
+                  <span class="form-text  alert-danger"
+                    *ngIf="educate.get('startDate').errors?.required && educate.get('startDate').touched">
+                    Start Date is required
+                  </span>
+                </div>
+                <label class="col-sm-2 control-label" [attr.for]="'endDate'+i">End Date</label>
+                <div class="col-sm-4"
+                  [ngClass]="{'has-error' : educate.get('endDate').invalid && educate.get('endDate').touched}">
+                  <input type="text" class="form-control" [id]="'endDate'+i" formControlName="endDate"
+                    placeholder="End Date">
+                  <span class="form-text  alert-danger"
+                    *ngIf="educate.get('endDate').errors?.required && educate.get('endDate').touched">
+                    End Date is required
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron">
+          <div class="form-group row">
+            <div class="col-sm-offset-1 col-sm-4">
+              <button type="button" class="btn btn-primary" (click)="addExperienceButton()"
+                [disabled]="employeeForm.get('experience').invalid">
+                Add Experience
+              </button>
+            </div>
+          </div>
+          <div formArrayName="experience" *ngFor="let exp of employeeForm.get('experience').controls; let i =index;">
+            <hr *ngIf="i > 0 ">
+            <div formGroupName="{{i}}">
+              <div class="form-group row"
+                [ngClass]="{'has-error' : exp.get('jobTitle').invalid && exp.get('jobTitle').touched}">
+                <label class="col-sm-2 control-label" [attr.for]="'jobTitle'+i">Job Title</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" [id]="'jobTitle'+i" placeholder="Job Position"
+                    formControlName="jobTitle">
+                  <span class="form-text  alert-danger"
+                    *ngIf="exp.get('jobTitle').errors?.required && exp.get('jobTitle').touched">
+                    Job Title is required
+                  </span>
+                </div>
+                <div class="col-sm-6" *ngIf="employeeForm.get('experience').length > 1 ">
+                  <button class="btn btn-danger btn-sm pull-right" title="Delete Experience"
+                    (click)="deleteExperience(i)">
+                    remove
+                  </button>
+                </div>
+              </div>
+              <div class="form-group row"
+                [ngClass]="{'has-error' : exp.get('company').invalid && exp.get('company').touched}">
+
+                <label class="col-sm-2 control-label" [attr.for]="'company'+i">Company</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" [id]="'company'+i" formControlName="company"
+                    placeholder="Company name">
+                  <span class="form-text  alert-danger"
+                    *ngIf="exp.get('company').errors?.required && exp.get('company').touched">
+                    Company name is required
+                  </span>
+                </div>
+
+              </div>
+              <div class="form-group row"
+                [ngClass]="{'has-error' : exp.get('jobDescription').invalid && exp.get('jobDescription').touched}">
+
+                <label class="col-sm-2 control-label" [attr.for]="'jobDescription'+i">Job Description</label>
+                <div class="col-sm-4">
+                  <textarea class="form-control" [id]="'jobDescription'+i" formControlName="jobDescription"
+                    rows="3"></textarea>
+                  <span class="form-text  alert-danger"
+                    *ngIf="exp.get('jobDescription').errors?.required && exp.get('jobDescription').touched">
+                    Job Description is required
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 control-label" [attr.for]="'startDates'+i">Start Date</label>
+                <div class="col-sm-4"
+                  [ngClass]="{'has-error' : exp.get('startDate').invalid && exp.get('startDate').touched}">
+                  <input type="text" class="form-control" [id]="'startDates'+i" formControlName="startDate"
+                    placeholder="Start Date">
+                  <span class="form-text  alert-danger"
+                    *ngIf="exp.get('startDate').errors?.required && exp.get('startDate').touched">
+                    Start Date is required
+                  </span>
+                </div>
+                <label class="col-sm-2 control-label" [attr.for]="'endDates'+i">End Date</label>
+                <div class="col-sm-4"
+                  [ngClass]="{'has-error' : exp.get('endDate').invalid && exp.get('endDate').touched}">
+                  <input type="text" class="form-control" [id]="'endDates'+i" formControlName="endDate"
+                    placeholder="End Date">
+                  <span class="form-text  alert-danger"
+                    *ngIf="exp.get('endDate').errors?.required && exp.get('endDate').touched">
+                    End Date is required
+                  </span>
+                </div>
+                <label class="form-text  " *ngIf="i == 0 ">
+                  <input type="checkbox" formControlName="present">Present
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="btn-toolbar">
+          <button class="btn btn-primary" type="submit"
+            [disabled]="!employeeForm.valid  || !employeeForm.touched ||  message " (click)="onSubmit()">
+            Save <img src="../../assets/loading.gif" *ngIf="message" alt="" style="width: 20px;">
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </form>
+
+  

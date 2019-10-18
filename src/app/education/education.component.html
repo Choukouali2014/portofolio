@@ -1,0 +1,61 @@
+<div class="well">
+  <div class="form-group" >
+    <div class="col-sm-offset-1 col-sm-4">
+      <button type="button" class="btn btn-primary">
+        Add Education
+      </button>
+    </div>
+    <div [formGroup]="educations" formArrayName="education" *ngFor="let educate of educations.get('education').controls; let i =index;">
+      <hr>
+      <div formGroupName="{{i}}">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Education</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="educationName" placeholder="College or University">
+            <span class="help-block">
+              Education Name is required
+            </span>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-danger btn-sm pull-right" title="Delete Education">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Degree</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="degree" placeholder="Bachelor of computer science">
+            <span class="help-block">
+              Degree is required
+            </span>
+          </div>
+          <label class="col-sm-1 control-label">GPA</label>
+          <div class="col-sm-4">
+            <input type="number" formControlName="gpa" class="form-control">
+            <span class="help-block">
+              GPA is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Start Date</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="startDate" placeholder="Start Date">
+            <span class="help-block">
+              Start Date is required
+            </span>
+          </div>
+          <label class="col-sm-1 control-label">End Date</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" formControlName="endDate" placeholder="End Date">
+            <span class="help-block">
+              End Date is required
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
