@@ -1,5 +1,9 @@
 # Portofolio
 
+Portofolio is a project which will help users to Read, Create,Update, Delete their resume
+
+Check out the [demo](https://portofolio-9cd05.firebaseapp.com/) 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Technologies used

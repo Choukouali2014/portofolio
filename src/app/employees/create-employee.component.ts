@@ -7,7 +7,7 @@ import { EmployeesService } from '../employees.service';
 import { ESkills } from './ESkills';
 import { IEducation } from '../education/IEducation';
 import { IExperience } from '../experience/IExperience';
-import { formErrors } from '../../assets/data/data';
+import { formErrors } from './../data';
 import { Router } from '@angular/router';
 import { IEmployees } from './IEmployees';
 

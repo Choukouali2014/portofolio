@@ -1,4 +1,4 @@
-import { formErrors, validationMessage } from './../../assets/data/data';
+import { formErrors, validationMessage } from './../data';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 export class CustomValidator {

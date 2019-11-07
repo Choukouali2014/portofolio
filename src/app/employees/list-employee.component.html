@@ -1,29 +1,64 @@
-
-<div class="table-responsive container " >
-  <table class="table table-bordered" *ngIf="employees && employees.length">
-    <thead>
-    <tr class="bg-primary">
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Contact Preference</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>{{ employee.firstName }}</td>
-      <td>{{ employee.email }}</td>
-      <td>{{ employee.phone }}</td>
-      <td>{{ employee.contactPreference }}</td>
-      <td class="btn-toolbar" role="group">
-        <button class="btn btn-primary" (click)="editButton(employee.id)" title="Edit View">Edit</button>
-        <button class="btn btn-primary" (click)="viewButton(employee.id)"  >View</button>
-        <button class="btn btn-danger" title="Delete Skill" (click)="deleteEmploy(employee.id)">
-          Delete
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div class="card-body" *ngIf="message===true; else loading">
+   
+  <div class="jumbotron" style="background-color: #ffffff;">
+      <div class="table-responsive container ">
+          <table class="table table-bordered" *ngIf="employees && employees.length">
+            <thead>
+              <tr class="bg-primary">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Contact Preference</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of employees">
+                <td>{{ employee.firstName }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.phone }}</td>
+                <td>{{ employee.contactPreference }}</td>
+                <td class="btn-toolbar" role="group">
+                  <button class="btn btn-primary" (click)="editButton(employee.id)" title="Edit View">Edit</button>
+                  <button class="btn btn-primary" (click)="viewButton(employee.id)">View</button>
+                  <button class="btn btn-danger" title="Delete Skill" (click)="deleteEmploy(employee.id)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
 </div>
+
+<ng-template #loading class="app-loading">
+    <div class="spinner-border" style="width: 100px; height: 100px;
+    transform-origin: center center !important;
+      position: absolute !important;
+     top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      margin: auto !important;
+    " role="status">
+        <span class="sr-only">Loading...</span>
+        
+      </div>
+      <div class="card"
+      style="width: 100%; height: auto;
+        position: absolute ;
+       top: 5 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: auto !important;">
+          <div class="card-body" style="text-align: center; color: red;">
+            No Data Available.....
+          </div>
+      </div>
+      
+  
+</ng-template>
+
+

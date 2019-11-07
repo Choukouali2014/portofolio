@@ -1,5 +1,5 @@
 
-import { formErrors } from './../../../assets/data/data';
+import { formErrors } from './../../data';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidator } from '../../shared/custom.validator';

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Frank Project';
-  constructor(private authentificate: AuthService ){ }
+  constructor(public authentificate: AuthService ){ }
   logout() {
     this.authentificate.signOut();
   }

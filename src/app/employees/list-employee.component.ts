@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IEmployees } from './IEmployees';
 import { EmployeesService } from '../employees.service';
 import { Router} from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-employee',
@@ -10,20 +11,38 @@ import { Router} from '@angular/router';
 })
 export class ListEmployeeComponent implements OnInit {
   //employees: IEmployees[];
-  @Input() employees: IEmployees[];
-  constructor( private employeeService: EmployeesService, private router: Router) { }
+   employees: IEmployees[];
+   message: boolean=false;
+  constructor( private employeeService: EmployeesService, private router: Router) {
+    
+   }
 
   ngOnInit() {
     this.getEmployee();
+    setInterval(()=>{
+      if(Object.keys(this.employees).length === 0){
+        this.getEmployee();
+        location.reload();
+      }
+      
+    }, 5000);
 
     //  retrieve value for message after save button
     // console.log(this.activeRoute.snapshot.paramMap.get('id'));
 
   }
   getEmployee() {
-    this.employeeService.getEmployees().subscribe(
-      (listEmployee) => this.employees = listEmployee,
-      (err) => console.log( err ) );
+    this.employeeService.getEmployees().pipe(
+    ).subscribe(
+      (listEmployee) => {
+        this.employees = listEmployee; 
+        this.message =true;
+        if(Object.keys(listEmployee).length === 0){
+          this.message =false;
+        }
+
+      },
+      (err) => {console.log( err ); this.message =false} );
   }
 
   editButton(employeeID: number) {

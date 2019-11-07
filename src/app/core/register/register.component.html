@@ -10,8 +10,8 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title text-center">Sign Up</h5>
-                        <div class="alert alert-primary" role="alert" *ngIf="errors">
-                            {{ errors}}
+                        <div class="alert alert-primary" role="alert" *ngIf="error">
+                            {{ error }}
                          </div>
                         <form class="form-signin" [formGroup]="signUp">
                             <label for="inputUsername">Username</label>
@@ -46,12 +46,9 @@
                                     {{formErrors.Confirmpassword }}
                                 </span>
                             </div>
-                            <span class="form-text   alert-danger" *ngIf="formErrors.mustMatch" (blur)="ShowErrors()">
-                                {{formErrors.mustMatch }}
-                            </span>
+                            
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"
-                                [disabled]="!signUp.valid  || !signUp.touched ||  message " (click)="onSubmit()">Sign Up
-                                <img src="../../assets/loading.gif" *ngIf="message" alt="" style="width: 20px;">
+                                [disabled]="!signUp.valid  || !signUp.touched  " (click)="onSubmit()">Sign Up
                             </button>
                             <button class="btn btn-lg btn-dark btn-block text-uppercase" (click)="signIn()"
                                 type="submit">Sign In

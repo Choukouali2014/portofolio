@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService} from './../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { formErrors } from 'src/assets/data/data';
+import { formErrors } from '../../data';
 import { User } from '../User';
 
 @Component({

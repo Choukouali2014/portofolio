@@ -4,11 +4,14 @@
     <div class="card">
 
       <div class="card-body">
-        <div class="card-title">
-          <h2>{{pageTitle}}</h2>
-        </div>
-
+          <div class="card-title">
+              <div class="clearfix" style="margin-top: 3%;"></div>
+            </div>
+            <div class="card-title">
+                <h2>{{pageTitle}}</h2>
+              </div>
         <div class="jumbotron">
+            
           <div class="form-group row">
             <label class="col-sm-2 control-label">First Name</label>
             <div class="col-sm-4" [ngClass]="{'has-error' : formErrors.firstName}">

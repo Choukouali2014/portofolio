@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxx',
-    authDomain: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
-    databaseURL: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
+    apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
+    authDomain: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    databaseURL: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     projectId: 'xxxxxxxxxxxxxxxxxxxxxxxx',
-    storageBucket: 'xxxxxxxxxxxxxxxxxxxxx',
-    messagingSenderId: 'xxxxxxxxxxxx',
-    appId : 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
+    storageBucket: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    messagingSenderId: 'xxxxxxxxxxxxxxxxxxxxxxxx',
+    appId : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   }
 };
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -16,7 +16,7 @@ import { User } from './User';
 export class AuthService {
   user: Observable<User>;
   errors: string;
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, public ngZone: NgZone) {
     this.user = this.afAuth.authState
       .pipe(
         switchMap(
@@ -53,8 +53,8 @@ export class AuthService {
    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
       (result) => {
         this.updateUserData(result.user);
-        console.log(result.user);
-        this.sendVerificationEmail();
+       // console.log(result.user);
+        //this.sendVerificationEmail();
         this.router.navigate(['/home']);
       }).catch((error) => {
         console.log(error);
@@ -63,9 +63,13 @@ export class AuthService {
   signIn(email,password) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
       (result) => {
+        
         this.updateUserData(result.user);
+        this.ngZone.run(()=>{
+          this.router.navigate(['/home']);
+        });
         this.errors = '';
-        this.router.navigate(['/home']);
+      
       }).catch((error) => {
         this.errors = error.message;
       });
@@ -75,14 +79,19 @@ export class AuthService {
     this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.updateUserData(credential.user);
-        console.log(credential.user);
-        this.router.navigate(['/home']);
+        this.ngZone.run(()=>{
+          this.router.navigate(['/home']);
+        })
+        
+        //console.log(credential.user);
+       // this.router.navigate(['/home']);
         // console.log(localStorage.set(''));
       });
   }
   signOut() {
     this.afAuth.auth.signOut().then(
       () => {
+       
         this.router.navigate(['/']);
       }
     );
